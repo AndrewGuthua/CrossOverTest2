@@ -53,11 +53,13 @@ public class LexerTest {
     }
 
     private Lexer getLexer(final String input, final CSVFormat format) {
+        
         return new Lexer(format, new ExtendedBufferedReader(new StringReader(input)));
     }
 
     @Test
     public void testSurroundingSpacesAreDeleted() throws IOException {
+        System.out.println("Running testSurroundingSpacesAreDeleted");
         final String code = "noSpaces,  leadingSpaces,trailingSpaces  ,  surroundingSpaces  ,  ,,";
         final Lexer parser = getLexer(code, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
         assertThat(parser.nextToken(new Token()), matches(TOKEN, "noSpaces"));
@@ -369,6 +371,7 @@ public class LexerTest {
 
     @Test
     public void testEscapedCharacter() throws Exception {
+        System.out.println("Running testEscapedCharacter");
         final Lexer lexer = getLexer("character\\aEscaped", formatWithEscaping);
         assertThat(lexer.nextToken(new Token()), hasContent("character\\aEscaped"));
     }
@@ -376,21 +379,24 @@ public class LexerTest {
     @Test
     public void testEscapedControlCharacter() throws Exception {
         // we are explicitly using an escape different from \ here
+        System.out.println("Running testEscapedControlCharacter");
         final Lexer lexer = getLexer("character!rEscaped", CSVFormat.DEFAULT.withEscape('!'));
         assertThat(lexer.nextToken(new Token()), hasContent("character" + CR + "Escaped"));
     }
 
     @Test
     public void testEscapedControlCharacter2() throws Exception {
+        System.out.println("Running testEscapedControlCharacter2");
         final Lexer lexer = getLexer("character\\rEscaped", CSVFormat.DEFAULT.withEscape('\\'));
         assertThat(lexer.nextToken(new Token()), hasContent("character" + CR + "Escaped"));
+        
     }
 
     @Test(expected = IOException.class)
     public void testEscapingAtEOF() throws Exception {
+        System.out.println("Running IOException");
         final String code = "escaping at EOF is evil\\";
         final Lexer lexer = getLexer(code, formatWithEscaping);
-
-        //lexer.nextToken(new Token());
+        lexer.nextToken(new Token());
     }
 }
