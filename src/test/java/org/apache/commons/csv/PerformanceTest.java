@@ -64,7 +64,7 @@ public class PerformanceTest {
     private static int num = 0; // number of elapsed times recorded
     private static long[] elapsedTimes = new long[max];
 
-    private static final CSVFormat format = CSVFormat.EXCEL;
+    private static final String format = ",";
 
     private static final File BIG_FILE = new File(System.getProperty("java.io.tmpdir"), "worldcitiespop.txt");
 
@@ -216,7 +216,7 @@ public class PerformanceTest {
    private static void testParseCommonsCSV() throws Exception {
        for (int i = 0; i < max; i++) {
            final BufferedReader reader = getReader();
-           final CSVParser parser = new CSVParser(reader, format);
+           final CSVParser parser = new CSVParser(reader, CSVFormat.valueOf(format));
            final long t0 = System.currentTimeMillis();
            final Stats s = iterate(parser);
            reader.close();
@@ -241,9 +241,9 @@ public class PerformanceTest {
            Lexer lexer = null;
            if (test.startsWith("CSVLexer")) {
                dynamic="!";
-               lexer = getLexerCtor(test).newInstance(new Object[]{format, input});
+               lexer = getLexerCtor(test).newInstance(new Object[]{CSVFormat.valueOf(format), input});
            } else {
-               lexer = new Lexer(format, input);
+               lexer = new Lexer(CSVFormat.valueOf(format), input);
            }
            int count = 0;
            int fields = 0;
