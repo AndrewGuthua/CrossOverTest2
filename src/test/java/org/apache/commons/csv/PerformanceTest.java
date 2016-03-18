@@ -102,13 +102,13 @@ public class PerformanceTest {
             } else if ("split".equals(test)) {
                 testReadBigFile(true);
             } else if ("csv".equals(test)) {
-                //testParseCommonsCSV();
+                testParseCommonsCSV();
             } else if ("lexreset".equals(test)) {
-                //testCSVLexer(false, test);
+                testCSVLexer(false, test);
             } else if ("lexnew".equals(test)) {
-                //testCSVLexer(true, test);
+                testCSVLexer(true, test);
             } else if (test.startsWith("CSVLexer")) {
-                //testCSVLexer(false, test);
+                testCSVLexer(false, test);
             } else if ("extb".equals(test)) {
                 testExtendedBuffer(false);
             } else if ("exts".equals(test)) {
