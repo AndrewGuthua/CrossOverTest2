@@ -64,7 +64,7 @@ public class PerformanceTest {
     private static int num = 0; // number of elapsed times recorded
     private static long[] elapsedTimes = new long[max];
 
-    private static final CSVFormat format = CSVFormat.EXCEL;
+    private static final CSVFormat format = null;
 
     private static final File BIG_FILE = new File(System.getProperty("java.io.tmpdir"), "worldcitiespop.txt");
 
